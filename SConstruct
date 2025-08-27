@@ -1,7 +1,6 @@
 import os
 import json
 import sys
-from SCons.Script import Glob
 
 env = Environment(tools=[])
 
@@ -9,15 +8,27 @@ build_dir = 'build'
 tmpl_build_dir = os.path.join(build_dir,'tmpl')
 
 contents_dir = 'contents'
+print(contents_dir)
 
-def get_files(directory):
+def get_files(directory, skip=None):
+    if skip:
+        skip = os.path.join(directory,skip)
     files_list = list()
     for root, _, files in os.walk(directory):
+        if skip and root.startswith(skip):
+            continue
         for file in files:
             files_list.append(os.path.join(root,file))
     return files_list
 
 contents_files = get_files(contents_dir)
+
+contents_compilers = dict()
+contents_compilers['dot'] = lambda target, source: env.Command(
+        target=target,
+        source=source,
+        action=f"dot -T{os.path.splitext(target)[1][1:]} $SOURCE -o $TARGET"
+    )
 
 class Templates():
     def __init__(self,path):
@@ -30,8 +41,7 @@ class Templates():
         return os.listdir(os.path.join(self.path, 'compilers'))
 
     def get_template_files(self):
-        prefixlen = len(self.path) + 1
-        return list(filter(lambda i: not i.startswith("compilers/",prefixlen), get_files(self.path)))
+        return get_files(self.path, 'compilers')
 
     def register_it(self):
         curr_tmpl_build_dir = os.path.join(tmpl_build_dir,self.get_name())
@@ -48,7 +58,17 @@ class Templates():
         for i in contents_files:
             iextension = os.path.splitext(i)[1][1:]
             print(f"{self.get_name()} format {i} -> {iextension}", file=sys.stderr)
-            if iextension in compilers:
+            if iextension in contents_compilers:
+                contentsdep.append(
+                    contents_compilers[iextension](
+                        os.path.join(
+                            curr_tmpl_build_dir,
+                            i[prefixlen:-1 * len(iextension) - 1]
+                        ),
+                        i
+                    )
+                )
+            elif iextension in compilers:
                 contentsdep.append(env.Command(
                     target=os.path.join(curr_tmpl_build_dir, i[prefixlen:-1 * len(iextension) - 1]),
                     source=i,

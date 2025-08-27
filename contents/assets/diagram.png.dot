@@ -1,0 +1,17 @@
+digraph {
+    subgraph style_one {
+        node [shape=box, style="rounded,filled", color="#93844F", fillcolor="#EEDF8E", fontsize=15, rounded=true]
+        apple [label="Apple"]
+        fuji [label="Fuji"]
+        gala [label="Gala"]
+        banana [label="Banana"]
+        plantain [label="Plantain"]
+        red_delicious [label="Red Delicious"]
+        granny_smith [label="Granny Smith"]
+    }
+    apple -> fuji;
+    apple -> gala;
+    banana -> plantain;
+    fuji -> red_delicious;
+    gala -> granny_smith;
+}
