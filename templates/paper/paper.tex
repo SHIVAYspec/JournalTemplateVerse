@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{authblk}
+\input{packages.tex}
+\title{\input{title.tex}}
+\input{authors.tex}
+
+\begin{document}
+\maketitle
+\section*{Abstract}
+    \input{abstract.tex}
+\section*{Keywords}
+    \input{keywords.tex}
+\include{main.tex}
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{document}

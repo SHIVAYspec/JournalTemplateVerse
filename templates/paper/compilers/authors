@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+import sys
+import json
+
+with open(sys.argv[1],"r") as f:
+    authorsJson = json.load(f)
+# Name and Affiliation Department
+for i,e in enumerate(authorsJson):
+    i = i + 1
+    print(f"\\author[{i}]{{{e['name']} \\thanks{{{e['aff_department']}}}}}")
+    print(f"\\affil[{i}]{{")
+    print(f"\t\\href{{mail:to{e['email']}}}{{{e['email']}}}")
+    print(f"\t\\href{{https://orcid.org/{e['orcid']}}}{{{e['orcid']}}}")
+    print("}")
+# Affiliation Institution
+aff = dict()
+for i,e in enumerate(authorsJson):
+    i = i + 1
+    iaff = f"{e['aff_name']}, {e['aff_street']}, {e['aff_city']}"
+    if iaff in aff:
+        aff[iaff].append(i)
+    else:
+        aff[iaff] = [i]
+for aff,aid in aff.items():
+    aids = map(lambda i: str(i),aid)
+    print(f"\\affil[{','.join(aids)}]{{{aff}}}")

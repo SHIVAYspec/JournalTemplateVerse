@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Alice Wonderland",
+    "email": "alice.w@example.com",
+    "orcid": "0000-0000-0000-0001",
+    "aff_department": "Student Persuing PHD in Theoretical Physics",
+    "aff_name": "Wonderland Institute of Technology",
+    "aff_street": "7 Mad Hatter Lane",
+    "aff_city": "FictionalCity - FictionalState"
+  },
+  {
+    "name": "Bob The Builder",
+    "email": "bob.t.builder@construction.org",
+    "orcid": "0000-0000-0000-0002",
+    "aff_department": "Structural Engineering",
+    "aff_name": "Can-Do University",
+    "aff_street": "8 Mad Hatter Lane",
+    "aff_city": "FictionalCity - FictionalState"
+  },
+  {
+    "name": "Charlie Chaplin",
+    "email": "c.chaplin@silentfilm.edu",
+    "orcid": "0000-0000-0000-0003",
+    "aff_department": "Performing Arts",
+    "aff_name": "The Keystone Academy",
+    "aff_street": "9 Mad Hatter Lane",
+    "aff_city": "FictionalCity - FictionalState"
+  },
+  {
+    "name": "Delta Echo",
+    "email": "delta@echo.fox",
+    "orcid": "0000-0000-0000-0004",
+    "aff_department": "Fake Title",
+    "aff_name": "The Keystone Academy",
+    "aff_street": "9 Mad Hatter Lane",
+    "aff_city": "FictionalCity - FictionalState"
+  }
+]
