@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import sys
+import json
+
+with open(sys.argv[1]) as f:
+    authorsJson = json.load(f)
+for i,e in enumerate(authorsJson):
+    print(rf"\newcommand{{\orcidauthor{chr(65+i)}}}{{{e['orcid']}}}")
+print(r"\Author{", end="")
+for i,e in enumerate(authorsJson):
+    print(f"{e['name']} $^{{{i}}}$\\orcid{chr(65+i)}{{}}", end="")
+    if len(authorsJson) - 1 == i:
+        pass
+    elif len(authorsJson) - 1 == i + 1:
+        print(" and ", end="")
+    else:
+        print(", ", end="")
+print("}")
+print(r"\AuthorNames{", end="")
+for i,e in enumerate(authorsJson):
+    print(e['name'], end="")
+    if (len(authorsJson) - 1) == i:
+        pass
+    elif (len(authorsJson) - 1) == i + 1:
+        print(" and ", end="")
+    else:
+        print(", ", end="")
+print("}")
+print(r"\address{%")
+for i,e in enumerate(authorsJson):
+    print(f"$^{i}$ \\quad {e['aff_department']}, {e['aff_name']}, {e['aff_street']}, {e['aff_city']}; {e['email']}", end="")
+    if len(authorsJson) - 1 != i:
+        print(r"\\")
+print("}")

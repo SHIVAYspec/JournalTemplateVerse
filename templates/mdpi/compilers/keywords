@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+import sys
+import json
+
+with open(sys.argv[1],"r") as f:
+    keywordsJson = json.loads(f.read())
+print(f"\\keyword{{{'; '.join(keywordsJson)};}}")
