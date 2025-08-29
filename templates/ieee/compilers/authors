@@ -6,12 +6,12 @@ with open(sys.argv[1]) as f:
     authorsJson = json.load(f)
 
 print("\\author{")
-for index,e in enumerate(authorsJson):
+for i,e in enumerate(authorsJson):
     print(f"\t\\IEEEauthorblockN{{{e['name']}}}")
     print(f"\t\\IEEEauthorblockA{{\\textit{{{e['aff_department']}}}}} \\\\")
     print(f"\t\\textit{{{e['aff_name']}}}")
     print(f"\t{e['aff_city']} \\\\")
     print(f"\t\\href{{mailto:https://orcid.org/{e['orcid']}}}{{{e['orcid']}}} \\\\")
-    if len(authorsJson) != (index + 1):
+    if len(authorsJson) != (i + 1):
         print("\t\\and")
 print("}")

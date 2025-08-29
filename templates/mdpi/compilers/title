@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+title=$(cat "${1}")
+printf '\\Title{%s}\n' "$title"
+printf '\\TitleCitation{%s}\n' "$title"

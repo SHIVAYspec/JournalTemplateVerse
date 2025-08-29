@@ -7,28 +7,30 @@ with open(sys.argv[1]) as f:
 for i,e in enumerate(authorsJson):
     print(rf"\newcommand{{\orcidauthor{chr(65+i)}}}{{{e['orcid']}}}")
 print(r"\Author{", end="")
-for i,e in enumerate(authorsJson):
-    print(f"{e['name']} $^{{{i}}}$\\orcid{chr(65+i)}{{}}", end="")
-    if len(authorsJson) - 1 == i:
+for index,e in enumerate(authorsJson):
+    n = index + 1
+    print(f"{e['name']} $^{{{n}}}$\\orcid{chr(65+index)}{{}}", end="")
+    if len(authorsJson) - 1 == index:
         pass
-    elif len(authorsJson) - 1 == i + 1:
+    elif len(authorsJson) - 1 == index + 1:
         print(" and ", end="")
     else:
         print(", ", end="")
 print("}")
 print(r"\AuthorNames{", end="")
-for i,e in enumerate(authorsJson):
+for index,e in enumerate(authorsJson):
     print(e['name'], end="")
-    if (len(authorsJson) - 1) == i:
+    if (len(authorsJson) - 1) == index:
         pass
-    elif (len(authorsJson) - 1) == i + 1:
+    elif (len(authorsJson) - 1) == index + 1:
         print(" and ", end="")
     else:
         print(", ", end="")
 print("}")
 print(r"\address{%")
-for i,e in enumerate(authorsJson):
-    print(f"$^{i}$ \\quad {e['aff_department']}, {e['aff_name']}, {e['aff_street']}, {e['aff_city']}; {e['email']}", end="")
-    if len(authorsJson) - 1 != i:
+for index,e in enumerate(authorsJson):
+    n = index + 1
+    print(f"$^{n}$ \\quad {e['aff_department']}, {e['aff_name']}, {e['aff_street']}, {e['aff_city']}; {e['email']}", end="")
+    if len(authorsJson) - 1 != index:
         print(r"\\")
 print("}")

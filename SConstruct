@@ -88,11 +88,14 @@ class Templates():
                     )
                 )
             elif iextension in compilers:
+                compiler = f"{self.path}/compilers/{iextension}"
+                temp_target = os.path.join(build_dir, i[prefixlen:-1 * len(iextension) - 1]),
                 contentsdep.append(env.Command(
-                    target=os.path.join(build_dir, i[prefixlen:-1 * len(iextension) - 1]),
+                    target=temp_target,
                     source=i,
-                    action=f"{self.path}/compilers/{iextension} $SOURCES > $TARGET"
+                    action=f"{compiler} $SOURCES > $TARGET"
                 ))
+                env.Depends(temp_target,compiler)
             else:
                 contentsdep.append(env.InstallAs(os.path.join(build_dir,i[prefixlen:]),i))
         target = os.path.join(build_dir, 'build', 'paper.pdf')
